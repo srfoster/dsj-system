@@ -1,6 +1,6 @@
-def dsj_theme(Topic):
+def dsj_topic():
     if Topic == "Wealth Inequality":
         return "Wealth Inequality"
         
 
-print(dsj_theme("Wealth Inequality"))
+print("Wealth Inequality")
