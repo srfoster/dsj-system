@@ -1,4 +1,3 @@
 def dsj_topic():
-	return "Plato's republic"
+	print ("Plato's Republic")
 	
-print(dsj_topic())
