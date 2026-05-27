@@ -1,3 +1,2 @@
-def Topic(topic):
-  print (topic)
-  return topic
+def dsj_topic():
+    return "placeholder topic"
