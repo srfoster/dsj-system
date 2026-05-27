@@ -1,2 +1,2 @@
 def dsj_topic():
-    return "class inequality"
+    print("class inequality")
