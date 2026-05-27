@@ -6,5 +6,5 @@ def dsj_topic():
     return "Evicted: Poverty and Profit in the American City"
 
 # Printing out string
-evicted_city = my_theme()
+evicted_city = dsj_topic()
 print(evicted_city)
