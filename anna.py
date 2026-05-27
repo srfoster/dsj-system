@@ -11,4 +11,4 @@
 # theme_return("group", topics)
 
 def dsj_topic():
-    return("The Architecture of Disability")
+    print("The Architecture of Disability")
