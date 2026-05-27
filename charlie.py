@@ -1,1 +1,2 @@
-def topic (racism in hiring practies)
+def dsj_topic():
+  return "racism in hiring practices"
