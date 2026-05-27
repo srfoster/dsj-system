@@ -1,2 +1,2 @@
-def dsj_gender_identity():
-    return "gender identity"
+def dsj_topic():
+    print("gender identity")
