@@ -1,5 +1,3 @@
 #seth
-def Topic(topic):
-    print (topic)
-    return topic
-Topic("placeholder topic")
+def dsj_topic():
+    return "placeholder topic"
