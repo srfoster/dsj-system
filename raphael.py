@@ -1,2 +1,2 @@
 def dsj_topic():
-    return "wealth distribution"
+     return   print("wealth distribution")
