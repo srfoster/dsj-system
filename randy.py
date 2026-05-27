@@ -1,2 +1,2 @@
-def dsj_wealth_gap():
+def dsj_topic():
     return "wealth gap"
