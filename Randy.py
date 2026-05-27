@@ -1,2 +1,2 @@
-def wealth_gap:
+def wealth_gap():
     print("This topic is wealth gap.")
