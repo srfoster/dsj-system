@@ -1,9 +1,9 @@
-# topics = ["Gender Identity", "Wealth Gap", "Eviction and Cycles of Poverty", "The Architecture of Disability"]
+# topics = ["The Architecture of Disability", "Gender Identity", "Wealth Gap", "Eviction and Cycles of Poverty"]
 
 
 # def theme_return(prompt, list):
 #     if prompt == "personal":
-#         print(list[3])
+#         print(list[0])
 #     elif prompt == "group":
 #         print(topics)
 
