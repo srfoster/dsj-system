@@ -1,6 +1,4 @@
-def Read_Topic():
-	topic = "Perpetuation of poverty by the wealthy."
+def dsj_topic():
+	return "Poverty, by America"
 	
-	return topic
-	
-print(Read_Topic())
+print(dsj_topic())

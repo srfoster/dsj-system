@@ -1,7 +1,4 @@
-def Read_Topic():
-	x = "Justice as an ideal - Plato's 'The Republic'" 
+def dsj_topic():
+	return "Plato's republic"
 	
-	
-	return x
-	
-print(Read_Topic())
+print(dsj_topic())
