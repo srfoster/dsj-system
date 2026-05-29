@@ -1,5 +1,5 @@
 def dsj_topic():
-print("Hiring Practices Experience Survey")
+    print("Hiring Practices Experience Survey")
 response = input("Have you experienced discrimination when looking for a job? (yes/no): ")
 if response.lower() == "yes":
     print("Thank you for sharing.")
