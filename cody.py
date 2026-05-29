@@ -1,4 +1,8 @@
 # "Educational Experience" based on the book Evicted by Matthew Desmond.
+
+def dsj_topic():
+    return "Evicted: Poverty and Profit in the American City"
+
 print("Based on the book, Evicted: Poverty and Profit in the American City\n")
 
 # Introduction
@@ -15,3 +19,17 @@ if answer.upper() == "B":
     print("Correct! Thank you for learning about Evicted!\n")
 else:
     print("The correct answer is B.\n")
+    
+answer = input("How can eviction affect children?\nA. More stress\nB. Better sleep\nC. More money\nAnswer: ")
+
+if answer.upper() == "A":
+    print("Correct!")
+else:
+    print("The correct answer is A. More stress.")
+    
+choice = input("\nWhy do you believe housing is important?: ")
+
+print("\nYour answer:")
+print(choice)
+
+print("\nThanks for learning about Evicted!")
