@@ -33,4 +33,4 @@ def dsj_topic():
 
     print("\nThanks for learning about Evicted!")
     
-dsj_topic()
+#dsj_topic()
