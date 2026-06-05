@@ -25,24 +25,30 @@ def dsj_topic():
         print("Correct!\n")
     else:
         print("The correct answer is A. More stress.")
-        
+
     choice = input(
     "\nYou only have enough money for one:\n"
     "A. Rent\n"
     "B. Groceries\n"
     "C. Gas\n"
     "D. Medicine\n"
-    "Which would you choose?: "
+    "\nWhich would you choose?: "
     )
 
-    print("Families facing poverty often have to make difficult choices like these.")
+    print("\n-- Families facing poverty often have to make difficult choices like these. --\n")
     
+    answer = input("Which is a federal policy initiative widely used to attempt and reduce poverty among low-income working families in the U.S.?\nA. Implementing a universal flat tax rate on all household income\nB. Expanding the Earned Income Tax Credit (EITC) and Child Tax Credit (CTC)\nC. Eliminating state-level minimum wage requirements\nD. Shifting all community aid responsibility exclusively to private charities \n\nAnswer: ")
 
-    choice = input("\nWhy do you believe housing is important?: ")
+    if answer.upper() == "B":
+        print("Correct!\n")
+    else:
+        print("The correct answer is B. Expanding the Earned Income Tax Credit (EITC) and Child Tax Credit (CTC).\n")
+
+    choice = input("Let's reflect, why do you believe housing is important?: ")
 
     print("\nYour answer:")
     print(choice)
 
-    print("\nThanks for learning about Evicted!")
+    print("\nThanks for learning about Evicted! ;D")
 
-#dsj_topic()
+#dsj_topic() # Remember to comment out the function call!
