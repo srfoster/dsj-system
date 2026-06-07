@@ -1,3 +1,7 @@
+#def dsj_topic():
+    #print("Opaque Hiring")
+    #wmd()
+
 applicant = {"race" : None}
 
 def main_menu():
