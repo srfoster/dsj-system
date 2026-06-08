@@ -10,9 +10,8 @@ def main_menu():
         "4": "Clear Total Number of Attempts",
         "Q": "Quit"
     }
-    selection = True
-    while selection == True:
-        print("Main Menu:\n")
+    while True:
+        title("Main Menu")
         for key, value in options.items():
             print(f"    [{key}] {value}")
         user_choice = input("\nSelect an option: ").lower()
@@ -139,4 +138,4 @@ def review_attempts():
     print("\nAttempts I guess\n")
     title("Total Number of Attempts Per Question")
 
-dsj_topic()
+#dsj_topic()
