@@ -253,4 +253,4 @@ def review_attempts():
         index += 1
     if not proceed("Would you like to continue to the main menu? (Yes/No): "):
         return
-dsj_topic()
+#dsj_topic()
