@@ -100,42 +100,44 @@ def menu_header(title):
 # my part of the hiring model
 def location_score():
     score = 0
-    print("=-= Where do you live? =-=\n")
 
+    towns = {
+        "1": ("Gilded Arch", 20),
+        "2": ("Ash-Bury", 5),
+        "3": ("Cresthaven", 10),
+        "4": ("Shingletown", -5)
+    }
+
+    print("=-= Where do you live? =-=\n")
     print("1. Gilded Arch\n2. Ash-Bury\n3. Cresthaven\n4. Shingletown\n")
 
     town = input("Choose (1, 2, 3, or 4): ")
 
-    if town == "1":
-        score += 20
-    elif town == "2":
-        score += 5
-    elif town == "3":
-        score += 10
-    elif town == "4":
-        score -= 5
+    if town in towns:
+        town_names, score = towns[town]
 
     print("Thank you for that information!")
-    return score
+    return score, town_names
+
 # work history
+
 def work_history_score():
-    score = 0
+    jobs = {
+        "1": ("Healer", 20),
+        "2": ("Torchbearer", -5),
+        "3": ("Cartographer", 15),
+        "4": ("Blacksmith", 5)
+    }
     print("\n=-= Work History =-=\n")
-
     print("1. Healer\n2. Torchbearer\n3. Cartographer\n4. Blacksmith")
-
+    
     job = input("Choose your previous job (1, 2, 3, or 4): ")
 
-    if job == "1":
-        score += 20
-    elif job == "2":
-        score -= 5
-    elif job == "3":
-        score += 15
-    elif job == "4":
-        score += 5
-
+    if job in jobs:
+        job_names, score = jobs[job]
+        
     print("Work history analyzed, Thank you.")
+    return score, job_names
 #------------------------------------------------------------------------------------------------------------------
 character = {}
 point_scores = {}
