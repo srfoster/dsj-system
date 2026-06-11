@@ -1,3 +1,5 @@
+#After some more practice during the collab project, I have room to make this shorter.
+#Will complete by end of quarter!
 def dsj_topic():
     main_menu()
 
@@ -68,6 +70,7 @@ def proceed(user_prompt):
         else:
             error_message(f"Please limit selection to 'YES' or 'NO'. {user_choice.upper()}")
 
+# Used AI to explore the tools and terms used in this book. There was a lot of it I did not understand. Google AI Studio is not letting me share my prompt, can send a copy of it if necessary.
 q = [
     {
         "question": "You need to find a specialist for a medical procedure. How do you choose your provider?",
@@ -102,8 +105,6 @@ q = [
         }
     }
 ]
-
-# Used AI to explore the tools and terms used in this book. There was a lot of it I did not understand.
 a = [
     {
         "user answer": "",

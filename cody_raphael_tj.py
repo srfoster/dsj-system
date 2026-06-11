@@ -366,4 +366,4 @@ def wmd(applicant):
                 jobtime = False
 
 
-dsj_topic()
+#dsj_topic()
