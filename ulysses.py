@@ -1,12 +1,10 @@
 def dsj_topic():
 	answers_to_question_1 = ["A. The sophists are right, and you concur.", "B. Justice is what is fair and good to everyone", "C. You say nothing"]
 	answers_to_question_2 = ["A. Only strong, because it is better to be feared than to know", "B. Only wise, because it is better to know than it is to be ignorant", "C. Both wise and strong, a philosopher-king should have ample experience in both life and academics."]
-	answers_to_question_3 = []
-	answers_to_question_4 = []
+	answers_to_question_3 = ["A. Social Justice must be in line with what what the rich dictate.", "B. Social Justice must be what the biggest guy says it is.", "C. Social Justice is everyone's responsibility." ]
 	flag_1 = True
 	flag_2 = False
 	flag_3 = False
-	flag_4 = False
 	print("-----Welcome to Plato's Cave-----")
 	print()
 	print("This is a text-based adventure where you must answer 4 questions correctly in sequence, otherwise you will not escape!")
@@ -59,7 +57,32 @@ def dsj_topic():
 			
 		else:
 			print("Please choose an option")
-		
+	
+	while flag_3:
+		print("The sophists now look at you as if you are crazy, because they have never seen that bright of light before.")
+		print("You try to explain it to them, but they do not understand.")
+		print("Plato now asks his final question")
+		print("What is the role of justice in society?")
+		for answer in answers_to_question_3:
+			print(answer)
+		response = input("")
+		if response.strip().lower() == 'a':
+			print("Plato smiles, then says you are wrong, because he knows the truth.")
+			print("**Your chains are now on you and you remain in ignorance.**")
+			flag_2 = False
+		elif response.strip().lower() == 'b':
+			print("Plato laughs, then says, 'it is good to be wise but it is best to be both', you remain in ignorance and your chains bind you like the others. ")
+			flag_2 = False
+			
+		elif response.strip().lower() == 'c':
+			print("Plato looks to you and says, 'you are now free', you are correct, and you escape the cave!")
+			flag_3 = False
+			
+			
+		else:
+			print("Please choose an option")
+	
+	print("Credits to The Republic, this code is by Ulysses Galvez for CS110 final project")
 			
 		
 		

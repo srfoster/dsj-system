@@ -26,17 +26,10 @@ def dsj_topic():
     else:
         print("The correct answer is A. More stress.")
 
-    choice = input(
-    "\nYou only have enough money for one:\n"
-    "A. Rent\n"
-    "B. Groceries\n"
-    "C. Gas\n"
-    "D. Medicine\n"
-    "\nWhich would you choose?: "
-    )
+    choice = input("\nYou only have enough money for one:\nA. Rent\nB. Groceries\nC. Gas\nD. Medicine\n\nWhich would you choose?: ")
 
     print("\n-- Families facing poverty often have to make difficult choices like these. --\n")
-    
+
     answer = input("Which is a federal policy initiative widely used to attempt and reduce poverty among low-income working families in the U.S.?\nA. Implementing a universal flat tax rate on all household income\nB. Expanding the Earned Income Tax Credit (EITC) and Child Tax Credit (CTC)\nC. Eliminating state-level minimum wage requirements\nD. Shifting all community aid responsibility exclusively to private charities \n\nAnswer: ")
 
     if answer.upper() == "B":
@@ -44,10 +37,14 @@ def dsj_topic():
     else:
         print("The correct answer is B. Expanding the Earned Income Tax Credit (EITC) and Child Tax Credit (CTC).\n")
 
-    choice = input("Let's reflect, why do you believe housing is important?: ")
+    choice = input("Say you are struggling to make ends meet and you just found found $500 what do you do with it?:\nA. Pay your rent\nB. Buy groceries\nC. Pay your utility bill\nD. Save it for an emergency\n\nAnswer:")
+    
+    print("\n-- There may not be a perfect choice when money is limited, just do what you think is best in that time --\n")
 
+    reflection = input("Matthew Desmond argues that without stable shelter, everything else falls apart, so why is housing important to you?: ")
+    
     print("\nYour answer:")
-    print(choice)
+    print(reflection)
 
     print("\nThanks for learning about Evicted! ;D")
 
