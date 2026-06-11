@@ -52,3 +52,25 @@ while counter<=len(questions)-1:
         else:
             print("Incorrect.")
             break
+#ian
+  def ToF(question, answer):
+      print(question)
+      guess = input('True or False: ')
+      
+      if guess == answer:
+          print('Correct\n')
+          
+      else:
+          print("Incorrect\n")
+          
+  question = "The value-added model had given him a failing grade but no advice on how to improve it"
+  answer = "false"
+  ToF(question,answer)
+  
+  question = "Tim Clifford made changes to his teaching in order to change his score"
+  answer = "true"
+  ToF(question,answer)
+  
+  question = "The No Child Left Behind Act had the opposite effect of its enactment"
+  answer = "false"
+  ToF(question,answer)
