@@ -228,7 +228,8 @@ def review_answers():
             continue
         print(f'You chose [{user_choice}]\n')
         print(f'From the book: {item["teaching_overview"]}\n')
-        print(f"[{user_choice}] {item["option_review"][user_choice]["choice"]}\n")
+        #Looked up how to index into a nested dictionary. https://www.bing.com/search?pglt=299&q=how+to+index+into+a+nested+dictionary+python&cvid=cc77d250e0564b5fa85f46bf6802b515&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgcICBDrBxhA0gEJMTUyNzZqMGo3qAIAsAIA&FORM=ANNTA1&PC=HCTS
+        print(f"[{user_choice}] {item['option_review'][user_choice]['choice']}\n")
         print(f'Feedback: {item["option_review"][user_choice]["feedback"]}\n')
         index += 1
         #print(index)

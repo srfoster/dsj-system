@@ -1,43 +1,53 @@
 def dsj_topic():
-    print("Opaque Hiring")
-    wmd()
+    menu_header("Opaque Hiring")
+    applicant = {
+        "race": "Not filled out.",
+        "personality": "Not filled out.",
+        "residence": "Not filled out.",
+        "previous job": "Not filled out."
+    }
+    #TODO fill out application with returns from my other functions.
+    main_menu(applicant)
 
-def main_menu():
-    menu_header("Character Editor")
+def main_menu(applicant):
+    menu_header("Application Form")
     options = {
         "1": "Race",
         "2": "Personality Test",
         "3": "Residence",
         "4": "Previous job",
+        "5": "WMD Scoring",
+        "6": "Print Application",
+        "Q": "Quit"
     }
-    loop = True
-    while loop: # Loop to ensure valid menu selection.          #modified this into a character editor
+    functions = {
+        "1": race_selection,
+        "2": personality_test,
+        "3": location_score,
+        "4": work_history_score,
+        "5": wmd,
+        "6": print_application
+    }
+    while True:
         for key, value in options.items():
-            print(f"[{key}] {value}")
-        selection = input("Select an option: ")
-        if selection == "1":
-            race_selection()
-            points, character["Race"] = location_score()
-            point_scores["Race"] = points
-            loop = False
-        elif selection == "2":
-            personality_test()
-            points, character["Personality"] = location_score()
-            point_scores["Personality"] = points
-            loop = False
-        elif selection == "3":
-            points, character["Residence"] = location_score()
-            point_scores["Residence"] = points
-            loop = False
-        elif selection == "4":
-            points, character["Previous job"] = work_history_score()
-            point_scores["Previous job"] = points
-            loop = False
+            print(f"\n[{key}] {value}")
+        selection = input("\nSelect an option: ")
+        # Looking up the validity of a specific use of a dictionary. https://www.bing.com/search?q=python+can+i+put+a+function+call+inside+a+dictionary%3F&cvid=017f631b642e40eca11cf84878f91693&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIHCAEQ6wcYQNIBCTExNTIzajBqOagCCLACAQ&FORM=ANAB01&PC=HCTS
+        function = functions.get(selection)
+        if function:
+            function(applicant)
+        elif selection.lower() == "q":
+            print("Exiting...")
+            break
         else:
             print("Invalid selection. Please choose a valid option.")
 
-def race_selection():
-    menu_header("Applicant Race Selection")
+def print_application(applicant):
+    for key, value in applicant.items():
+        print(f"\n{key.upper()}: {value}")
+
+def race_selection(applicant):
+    menu_header("Select your race:")
     races = {
         "1": "Elf",
         "2": "Dwarf",
@@ -45,18 +55,17 @@ def race_selection():
         "4": "Orc"
     }
     for key, value in races.items():
-        print(f"[{key}] {value}")
-    selection = True
-    while selection: # Loop to ensure valid class selection.
-        race = input("Select your race: ")
+        print(f"\n[{key}] {value}")
+    while True:
+        race = input("\nSelect your race: ")
         if race in races:
             applicant["race"] = races[race]
-            print(races[race] + " selected.")
-            selection = False
+            print(f"\n{races[race]} selected.\n")
+            return
         else:
-            print("Invalid race selection. Please choose a valid option.")
+            print("Invalid race selection. Please choose a valid option.\n")    
 
-def personality_test():
+def personality_test(applicant):
     menu_header("Personality Test")
     traits = {
         # Looked up traits interviewers look for.https://status.net/articles/professional-characteristics-for-the-workplace-essential-traits-for-success/
@@ -70,9 +79,10 @@ def personality_test():
         "Adaptability": 0,
         "Emotional Intelligence": 0
     }
-    # Looked up interview questions. https://www.bing.com/search?q=Interview%20questions%20for%20job%20interview%20that%20grade%20the%20following%20traits%3A%20Integrity%2C%20Commitment%2C%20Communication%2C%20Reliability%2C%20Teamwork%2C%20Problem-Solving%2C%20Time%20Management%2C%20Adaptability%2C%20and%20Emotional%20Intelligence.%20Multiple%20choice&qs=n&form=QBRE&sp=-1&ghc=1&lq=0&pq=interview%20questions%20for%20job%20interview%20that%20grade%20the%20following%20traits%3A%20integrity%2C%20commitment%2C%20communication%2C%20reliability%2C%20teamwork%2C%20problem-solving%2C%20time%20management%2C%20adaptability%2C%20and%20emotional%20intelligence.%20multiple%20choice&sc=7-223&sk=&cvid=1EF9F21A57EA42AA85AECAF4BF07992C
+    # Looked up interview questions. https://www.bing.com/search?q=Interview%20questions%20for%20job%20interview%20that%20grade%20the%20following%20traits%3A%20Integrity%2C%20Commitment%2C%20Communication%2C%20Reliability%2C%20Teamwork%2C%20Problem Solving%2C%20Time%20Management%2C%20Adaptability%2C%20and%20Emotional%20Intelligence.%20Multiple%20choice&qs=n&form=QBRE&sp=-1&ghc=1&lq=0&pq=interview%20questions%20for%20job%20interview%20that%20grade%20the%20following%20traits%3A%20integrity%2C%20commitment%2C%20communication%2C%20reliability%2C%20teamwork%2C%20Problem Solving%2C%20time%20management%2C%20adaptability%2C%20and%20emotional%20intelligence.%20multiple%20choice&sc=7-223&sk=&cvid=1EF9F21A57EA42AA85AECAF4BF07992C
     questions = [
         {
+            "user answer": None,
             "question": "You discover a colleague has made a mistake that could cost the company money. They ask you not to tell anyone. What do you do?",
             "options": {
                 "A": "Keep it quiet to protect your colleague.",
@@ -84,10 +94,11 @@ def personality_test():
                 "A": {"Integrity": -2, "Communication": -1, "Teamwork": 1},
                 "B": {"Integrity": 2, "Teamwork": -2, "Emotional Intelligence": -1},
                 "C": {"Integrity": 2, "Communication": 2, "Teamwork": 2, "Emotional Intelligence": 1},
-                "D": {"Integrity": -2, "Reliability": -2, "Problem-Solving": -1}
+                "D": {"Integrity": -2, "Reliability": -2, "Problem Solving": -1}
             }
         },
         {
+            "user answer": None,
             "question": "A project deadline is unexpectedly moved up by a week. How do you respond?",
             "options": {
                 "A": "Complain about the change but still try to finish.",
@@ -103,6 +114,7 @@ def personality_test():
             }
         },
         {
+            "user answer": None,
             "question": "Your manager gives you unclear instructions. What’s your next step?",
             "options": {
                 "A": "Guess what they meant and proceed.",
@@ -111,13 +123,14 @@ def personality_test():
                 "D": "Ask a coworker to interpret for you."
             },
             "values": {
-                "A": {"Communication": -2, "Problem-Solving": -1, "Reliability": -1},
-                "B": {"Communication": 2, "Problem-Solving": 2, "Time Management": 1},
+                "A": {"Communication": -2, "Problem Solving": -1, "Reliability": -1},
+                "B": {"Communication": 2, "Problem Solving": 2, "Time Management": 1},
                 "C": {"Communication": -2, "Reliability": -2, "Time Management": -2},
                 "D": {"Communication": -1, "Teamwork": 1}
             }
         },
         {
+            "user answer": None,
             "question": "A teammate is relying on you to deliver part of a project. You realize you might be late. What do you do?",
             "options": {
                 "A": "Say nothing and hope you can catch up.",
@@ -127,12 +140,13 @@ def personality_test():
             },
             "values": {
                 "A": {"Reliability": -2, "Integrity": -2, "Communication": -2},
-                "B": {"Reliability": 2, "Communication": 2, "Integrity": 2, "Problem-Solving": 1},
+                "B": {"Reliability": 2, "Communication": 2, "Integrity": 2, "Problem Solving": 1},
                 "C": {"Reliability": -2, "Communication": -1, "Emotional Intelligence": -2},
                 "D": {"Reliability": -1, "Teamwork": -2, "Integrity": -1}
             }
         },
         {
+            "user answer": None,
             "question": "During a group project, one member is not contributing equally. How do you handle it?",
             "options": {
                 "A": "Take over their tasks without saying anything.",
@@ -148,6 +162,7 @@ def personality_test():
             }
         },
         {
+            "user answer": None,
             "question": "A client rejects your proposed solution. What’s your approach?",
             "options": {
                 "A": "Defend your idea strongly.",
@@ -156,13 +171,14 @@ def personality_test():
                 "D": "Wait for them to change their mind."
             },
             "values": {
-                "A": {"Problem-Solving": 0, "Adaptability": -2, "Emotional Intelligence": -1},
-                "B": {"Problem-Solving": 2, "Adaptability": 2, "Communication": 2},
-                "C": {"Problem-Solving": -2, "Commitment": -2, "Adaptability": -2},
-                "D": {"Problem-Solving": -2, "Adaptability": -2, "Time Management": -2}
+                "A": {"Problem Solving": 0, "Adaptability": -2, "Emotional Intelligence": -1},
+                "B": {"Problem Solving": 2, "Adaptability": 2, "Communication": 2},
+                "C": {"Problem Solving": -2, "Commitment": -2, "Adaptability": -2},
+                "D": {"Problem Solving": -2, "Adaptability": -2, "Time Management": -2}
             }
         },
         {
+            "user answer": None,
             "question": "You have multiple urgent tasks due today. What’s your first step?",
             "options": {
                 "A": "Start with the easiest task.",
@@ -171,13 +187,14 @@ def personality_test():
                 "D": "Ask for deadline extensions on all tasks."
             },
             "values": {
-                "A": {"Time Management": 1, "Problem-Solving": 0},
-                "B": {"Time Management": 2, "Problem-Solving": 2, "Reliability": 1},
-                "C": {"Time Management": -2, "Adaptability": -1, "Problem-Solving": -1},
+                "A": {"Time Management": 1, "Problem Solving": 0},
+                "B": {"Time Management": 2, "Problem Solving": 2, "Reliability": 1},
+                "C": {"Time Management": -2, "Adaptability": -1, "Problem Solving": -1},
                 "D": {"Time Management": -1, "Reliability": -2, "Commitment": -1}
             }
         },
         {
+            "user answer": None,
             "question": "Your company suddenly changes its main software tool. How do you react?",
             "options": {
                 "A": "Resist the change and keep using the old tool.",
@@ -186,13 +203,14 @@ def personality_test():
                 "D": "Complain about the change to coworkers."
             },
             "values": {
-                "A": {"Adaptability": -2, "Problem-Solving": -1, "Commitment": -1},
+                "A": {"Adaptability": -2, "Problem Solving": -1, "Commitment": -1},
                 "B": {"Adaptability": 2, "Teamwork": 2, "Commitment": 2},
                 "C": {"Adaptability": -1, "Reliability": -1},
                 "D": {"Adaptability": -2, "Emotional Intelligence": -2, "Teamwork": -1}
             }
         },
         {
+            "user answer": None,
             "question": "A coworker is visibly upset during a meeting. What do you do?",
             "options": {
                 "A": "Ignore it to avoid awkwardness.",
@@ -208,14 +226,31 @@ def personality_test():
             }
         }
     ]
+    count = 0
+    for question in questions:
+        while True:
+            print(f"Question #{count + 1}:")
+            print(f"\n{question["question"]}")
+            for key, value in question["options"].items():
+                print(f"\n\t[{key}] {value}")
+            user_choice = input("\nSelect an answer: ").upper()
+            if user_choice in question["options"]:
+                question["user_answer"] = user_choice
+                #Looked up how to index into a nested dictionary. #Looked up how to index into a nested dictionary. https://www.bing.com/search?pglt=299&q=how+to+index+into+a+nested+dictionary+python&cvid=cc77d250e0564b5fa85f46bf6802b515&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgcICBDrBxhA0gEJMTUyNzZqMGo3qAIAsAIA&FORM=ANNTA1&PC=HCTS
+                for key, value in question["values"][user_choice].items():
+                    traits[key] = traits.get(key, 0) + value
+                break
+            else:
+                print(f"{user_choice} is not a valid selection.")
+        count += 1
 
 def menu_header(title):
-    #print("=" * len(title))
+    print("=" * len(title))
     print(title)
     print("=" * len(title))
 #------------------------------------------------------------------------------------------------------------------------------------
 # my part of the hiring model
-def location_score():
+def location_score(applicant):
     score = 0
 
     towns = {
@@ -238,7 +273,7 @@ def location_score():
 
 # work history
 
-def work_history_score():
+def work_history_score(applicant):
     jobs = {
         "1": ("Healer", 20),
         "2": ("Torchbearer", -5),
@@ -268,7 +303,7 @@ def title():
     print("=" * 50)
 
 
-def wmd():
+def wmd(applicant):
     jobtime = True
     cheater = False
     points = 0
@@ -331,4 +366,4 @@ def wmd():
                 jobtime = False
 
 
-wmd()
+dsj_topic()
