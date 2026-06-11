@@ -6,7 +6,6 @@ def dsj_topic():
         "residence": "Not filled out.",
         "previous job": "Not filled out."
     }
-    #TODO fill out application with returns from my other functions.
     main_menu(applicant)
 
 def main_menu(applicant):
