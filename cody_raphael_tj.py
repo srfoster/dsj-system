@@ -402,6 +402,7 @@ def wmd():
         for letters in orc_names:
             if letters in name.lower():
                 point_scores["Name"] = -20
+                break
         points, character["Race"] = race_selection()
         point_scores["Race"] = points
         title()
