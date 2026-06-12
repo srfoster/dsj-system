@@ -1,10 +1,8 @@
-#After some more practice during the collab project, I have room to make this shorter.
-#Will complete by end of quarter!
 def dsj_topic():
     main_menu()
 
 def main_menu():
-    title_subtitle("Trans Technologies", "by Oliver L. Haimson")
+    print_title_subtitle("Trans Technologies", "by Oliver L. Haimson")
     options = {
         "1": "Questions",
         "2": "Review Your Answers",
@@ -12,37 +10,37 @@ def main_menu():
         "4": "Clear Total Number of Attempts",
         "Q": "Quit"
     }
+    functions = {
+        "1": answer_questions,
+        "2": review_answers,
+        "3": review_attempts,
+    }
     while True:
-        title("Main Menu")
+        print_title("Main Menu")
         for key, value in options.items():
             print(f"\t[{key}] {value}\n")
         user_choice = input("\nSelect an option: ").lower()
-        if user_choice == "1":
-            questions()
-            print("You have answered all of the questions. Returning to main menu...")
-            continue
-        elif user_choice == "2":
-            review_answers()
-            continue
-        elif user_choice == "3":
-            review_attempts()
-            continue
-        elif user_choice == "4":
+        if user_choice == "4":
             total_attempts.clear()
-            title_subtitle("Total attempts have been reset", "Returning to main menu...")
+            print_title("Total attempts have been reset")
+            input("Press any key to return to main menu...")
             continue
         elif user_choice == "q":
             print("\nExiting...\n")
             break
+        #Looked up the same thing I looked up in cody_raphael_tj.py https://www.bing.com/search?q=python+can+i+put+a+function+call+inside+a+dictionary%3F&cvid=017f631b642e40eca11cf84878f91693&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIHCAEQ6wcYQNIBCTExNTIzajBqOagCCLACAQ&FORM=ANAB01&PC=HCTS
+        function = functions[user_choice]
+        if function: #exists
+            function()
         else:
             error_message(user_choice)
 
-def title(title):
+def print_title(title):
     print("\n" + "=" * len(title))
     print(title)
     print("=" * len(title) + "\n")
     
-def title_subtitle(title, subtitle):
+def print_title_subtitle(title, subtitle):
     if len(subtitle) > len(title):
         delta = int((len(subtitle) - len(title)) / 2)
         print("=" * len(subtitle))
@@ -59,19 +57,8 @@ def title_subtitle(title, subtitle):
 def error_message(user_input):
     print(f"\n{user_input} is not a valid selection.")
 
-def proceed(user_prompt):
-    while True:
-        user_choice = input(user_prompt).lower()
-        if user_choice in ("yes", "y"):
-            return True
-        elif user_choice in ("no", "n"):
-            print("Returning to main menu...")
-            return False
-        else:
-            error_message(f"Please limit selection to 'YES' or 'NO'. {user_choice.upper()}")
-
 # Used AI to explore the tools and terms used in this book. There was a lot of it I did not understand. Google AI Studio is not letting me share my prompt, can send a copy of it if necessary.
-q = [
+questions = [
     {
         "question": "You need to find a specialist for a medical procedure. How do you choose your provider?",
         "option": {
@@ -105,7 +92,7 @@ q = [
         }
     }
 ]
-a = [
+answers = [
     {
         "user answer": "",
         "scenario": "Finding a sensitive medical specialist.",
@@ -185,17 +172,17 @@ a = [
 ]
 total_attempts = []
 
-def questions():
-    title_subtitle("Questions", "Please consider the following")
+def answer_questions():
+    print_title_subtitle("Questions", "Please consider the following")
     index = 0
     attempts = 0
-    for item in q:
+    for question in questions:
         valid_selection = False
         while not valid_selection:
             print(f"Question #{index + 1}:")
             print("Total attempts:", attempts)
-            print(f'\n{item["question"]}')
-            for key, value in item["option"].items():
+            print(f'\n{question["question"]}')
+            for key, value in question["option"].items():
                 print(f"\n\t[{key}] {value}")
             user_choice = input("\nSelect an answer: ")
             if user_choice in ["a", "A", "b", "B", "c", "C"]:
@@ -203,56 +190,40 @@ def questions():
                 attempts += 1
                 total_attempts.append(attempts)
                 #print(total_attempts)
-                a[index]["user answer"] = user_choice
+                #Looked up how to index nested dictionaries. https://www.bing.com/search?pglt=299&q=how+to+index+into+a+nested+dictionary+python&cvid=cc77d250e0564b5fa85f46bf6802b515&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgcICBDrBxhA0gEJMTUyNzZqMGo3qAIAsAIA&FORM=ANNTA1&PC=HCTS
+                answers[index]["user answer"] = user_choice
             else:
                 error_message(user_choice)
             attempts += 1
         attempts = 0
         index += 1
-        #print(index)
-        if index == 4:
-            # bug here, doesn't seem to matter how you answer. VSCode Copilot gave me the solution if not proceed().
-            if not proceed("Would you like to return to the main menu? (Yes/No): "):
-                return
-        else:
-            if not proceed("Would you like to continue to the next question? (Yes/No): "):
-                return
 
 def review_answers():
-    title_subtitle("Reviewing", "Answers")
-    index = 0
-    for item in a:
-        print(f'Question #{index + 1}: {item["scenario"]}\n')
-        user_choice = item["user answer"].upper()
+    print_title_subtitle("Reviewing", "Answers")
+    index = 0 #tracking question number
+    for answer in answers:
+        user_choice = answer["user answer"].upper()
         if not user_choice:
-            error_message("You have not answered any questions. Please select 'Questions' from main menu. Returning to main menu...")
-            continue
-        print(f'You chose [{user_choice}]\n')
-        print(f'From the book: {item["teaching_overview"]}\n')
-        #Looked up how to index into a nested dictionary. https://www.bing.com/search?pglt=299&q=how+to+index+into+a+nested+dictionary+python&cvid=cc77d250e0564b5fa85f46bf6802b515&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgcICBDrBxhA0gEJMTUyNzZqMGo3qAIAsAIA&FORM=ANNTA1&PC=HCTS
-        print(f"[{user_choice}] {item['option_review'][user_choice]['choice']}\n")
-        print(f'Feedback: {item["option_review"][user_choice]["feedback"]}\n')
-        index += 1
-        #print(index)
-        if index == 4:
-            # same bug as questions()
-            if not proceed("Would you like to return to the main menu? (Yes/No): "):
-                return
-        else:
-            if not proceed("Would you like to continue to the next question? (Yes/No): "):
-                return
-                
-def review_attempts():
-    title_subtitle("Total Number of Attempts", "Per Question")
-    index = 1
-    if total_attempts == []:
-        print("You have not made any attempts yet.")
-        if not proceed("Would you like to continue to the main menu? (Yes/No): "):
+            input("You have not answered any questions. Press any key to return to main menu...\n")
             return
+        print_title(f"Question #{index + 1}")
+        print(f'{answer["scenario"]}')
+        #Looked up how to index into a nested dictionary. https://www.bing.com/search?pglt=299&q=how+to+index+into+a+nested+dictionary+python&cvid=cc77d250e0564b5fa85f46bf6802b515&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEAAYQDIGCAcQABhAMgcICBDrBxhA0gEJMTUyNzZqMGo3qAIAsAIA&FORM=ANNTA1&PC=HCTS
+        print(f"Your answer: [{user_choice}] {answer['option_review'][user_choice]['choice']}\n")
+        print(f'{answer["option_review"][user_choice]["feedback"]}\n')
+        print(f'Review: {answer["teaching_overview"]}\n')
+        index += 1
+        input("Press any key to continue...\n")
+ 
+def review_attempts():
+    print_title_subtitle("Total Number of Attempts", "Per Question")
+    index = 1
+    if not total_attempts: #empty
+        print("You have not made any attempts yet.")
         return
     for item in total_attempts:
         print(f"Question #{index}: {item} \n")
         index += 1
-    if not proceed("Would you like to continue to the main menu? (Yes/No): "):
-        return
+    input("Press any key to continue...")
+
 #dsj_topic()
