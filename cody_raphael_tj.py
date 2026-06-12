@@ -1,5 +1,8 @@
 def dsj_topic():
     menu_header("Opaque Hiring")
+    wmd()
+    
+#def placeholder:    
     applicant = {
         "race": "Not filled out.",
         "personality": "Not filled out.",
@@ -8,7 +11,7 @@ def dsj_topic():
     }
     main_menu(applicant)
 
-def main_menu(applicant):
+#def main_menu(applicant):
     menu_header("Application Form")
     options = {
         "1": "Race",
@@ -41,11 +44,11 @@ def main_menu(applicant):
         else:
             print("Invalid selection. Please choose a valid option.")
 
-def print_application(applicant):
+#def print_application(applicant):
     for key, value in applicant.items():
         print(f"\n{key.upper()}: {value}")
 
-def race_selection(applicant):
+#def race_selection():
     menu_header("Select your race:")
     races = {
         "1": "Elf",
@@ -64,7 +67,7 @@ def race_selection(applicant):
         else:
             print("Invalid race selection. Please choose a valid option.\n")    
 
-def personality_test(applicant):
+def personality_test():
     menu_header("Personality Test")
     traits = {
         # Looked up traits interviewers look for.https://status.net/articles/professional-characteristics-for-the-workplace-essential-traits-for-success/
@@ -243,52 +246,189 @@ def personality_test(applicant):
                 print(f"{user_choice} is not a valid selection.")
         count += 1
 
+    return traits
+
+def personality_results():
+    traits = personality_test()
+    trait_weight = {
+        "Commitment": 2.5,
+        "Reliability": 2.5,
+        "Adaptability": 2.0,
+        "Time Management": 1.5,
+        "Problem Solving": 1.5,
+        "Communication": 1.0,
+        "Teamwork": 1.0,
+        "Integrity": 0.5,
+        "Emotional Intelligence": 0.2
+    }
+    score = 0.0
+    for i in traits:
+        points = traits[i]
+        weight = trait_weight[i]
+        if points < 0:
+            score += (points * weight * 2.0)
+        else:
+            score +=(points * weight)
+    score = round(score)
+    if score >= 40:
+        hire = "High value"
+    elif score >= 10:
+        hire = "Mid value"
+    else:
+        hire = "Low value"
+    return score, hire
+
 def menu_header(title):
     print("=" * len(title))
     print(title)
     print("=" * len(title))
 #------------------------------------------------------------------------------------------------------------------------------------
-# my part of the hiring model
-def location_score(applicant):
+def race_selection():
+    score = 0
+
+    races = {
+        "1": ("Elf", 20),
+        "2": ("Mark Zuckerberg (Lizardmen)", -20),
+        "3": ("Dwarf", -10),
+        "4": ("Orc", -30),
+        "5": ("Human", 10),
+        "6": ("Goblin", -40)
+    }
+    while True:
+        print("=-= Whats your race? =-=")
+        print("=" * 50)
+        print("1. Elf\n2. Mark Zuckerberg (a.k.a Lizardmen)\n3. Dwarf\n4. Orc\n5. Human\n6. Goblin")
+
+        r = input("Choose (1, 2, 3, 4, 5, 6): ")
+
+        if r in races:
+            race_names, score = races[r]
+            break
+        else:
+            print("Please choose a valid option.")
+
+    return score, race_names
+
+def class_score():
+    score = 0
+
+    classes = {
+        "1": ("Cleric", -40),
+        "2": ("Rogue", 20),
+        "3": ("Warrior", -30),
+        "4": ("Mage", -10),
+        "5": ("Tank", 10),
+        "6": ("Ranger", -20)
+    }
+    while True:
+        print("=-= Whats your class? =-=")
+        print("=" * 50)
+        print("1. Cleric\n2. Rogue\n3. Warrior\n4. Mage\n5. Tank\n6. Ranger")
+
+        c = input("Choose (1, 2, 3, 4, 5, 6): ")
+
+        if c in classes:
+            class_names, score = classes[c]
+            break
+        else:
+            print("Please choose a valid option.")
+
+    return score, class_names
+
+def location_score():
     score = 0
 
     towns = {
         "1": ("Gilded Arch", 20),
-        "2": ("Ash-Bury", 5),
-        "3": ("Cresthaven", 10),
-        "4": ("Shingletown", -5)
+        "2": ("Shingletown", -20),
+        "3": ("Cresthaven", -10),
+        "4": ("Jacobstown", -30),
+        "5": ("Whiterun", 10),
+        "6": ("Kvatch", -40)
     }
+    while True:
+        print("=-= Where do you live? =-=")
+        print("=" * 50)
+        print("1. Gilded Arch\n2. Shingletown\n3. Cresthaven\n4. Jacobstown\n5. whiterun\n6. Kvatch")
 
-    print("=-= Where do you live? =-=\n")
-    print("1. Gilded Arch\n2. Ash-Bury\n3. Cresthaven\n4. Shingletown\n")
+        town = input("Choose (1, 2, 3, 4, 5, 6): ")
 
-    town = input("Choose (1, 2, 3, or 4): ")
+        if town in towns:
+            town_names, score = towns[town]
+            break
+        else:
+            print("Please choose a valid option.")
 
-    if town in towns:
-        town_names, score = towns[town]
-
-    print("Thank you for that information!")
     return score, town_names
 
-# work history
 
-def work_history_score(applicant):
+def work_history_score():
     jobs = {
-        "1": ("Healer", 20),
-        "2": ("Torchbearer", -5),
-        "3": ("Cartographer", 15),
-        "4": ("Blacksmith", 5)
+        "1": ("Mercenary", 20),
+        "2": ("Alchemist", -10),
+        "3": ("Cartographer", -20),
+        "4": ("Begger", -40),
+        "5": ("Potion Salesman", 10),
+        "6": ("Blacksmith", -30)
     }
-    print("\n=-= Work History =-=\n")
-    print("1. Healer\n2. Torchbearer\n3. Cartographer\n4. Blacksmith")
-    
-    job = input("Choose your previous job (1, 2, 3, or 4): ")
-
-    if job in jobs:
-        job_names, score = jobs[job]
+    while True:
+        print("=-= Work History =-=")
+        print("=" * 50)
+        print("1. Mercenary\n2. Alchemist\n3. Cartographer\n4. Begger\n5. Potion Salesman\n6. Blacksmith")
         
-    print("Work history analyzed, Thank you.")
+        job = input("Choose your previous job (1, 2, 3, 4, 5, 6): ")
+
+        if job in jobs:
+            job_names, score = jobs[job]
+            break
+        else:
+            print("Please choose a valid option.")
+    
     return score, job_names
+#------------------------------------------------------------------------------------------------------------------
+def editor():
+    menu_header("Character Editor")
+    options = {
+        "1": "Race",
+        "2": "Class",
+        "3": "Residence",
+        "4": "Previous job",
+        "5": "Personality Test",
+    }
+    functions = {
+        "1": race_selection,
+        "2": class_score,
+        "3": location_score,
+        "4": work_history_score,
+        "5": personality_results
+    }
+    loop = True
+    while loop:
+        for key, value in options.items():
+            print(f"[{key}] {value}")
+        selection = input("Select an option: ")
+        if selection == "1":
+            points, character["Race"] = race_selection()
+            point_scores["Race"] = points
+            loop = False
+        elif selection == "2":
+            points, character["Class"] = class_score()
+            point_scores["Class"] = points
+            loop = False
+        elif selection == "3":
+            points, character["Residence"] = location_score()
+            point_scores["Residence"] = points
+            loop = False
+        elif selection == "4":
+            points, character["Previous job"] = work_history_score()
+            point_scores["Previous job"] = points
+            loop = False
+        elif selection == "5":
+            points, character["Personality"] = personality_results()
+            point_scores["Personality"] = points
+            loop = False
+        else:
+            print("Invalid selection. Please choose a valid option.")
 #------------------------------------------------------------------------------------------------------------------
 character = {}
 point_scores = {}
@@ -296,32 +436,42 @@ point_scores = {}
 
 def title():
     print("=" * 50)
-    print(f"      //Fantasy WMD Simulator//"'\nBased on "Weapons of Math Destruction" CH 6')
+    print(f"      //Fantasy WMD Hiring Simulator//"'\nBased on "Weapons of Math Destruction" CH 6')
     for c,d in character.items():
         print(f"{c}: {d}")
     print("=" * 50)
 
 
-def wmd(applicant):
+def wmd():
+    character.clear()
+    point_scores.clear()
     jobtime = True
     cheater = False
     points = 0
     point_total = 0
     print("=" * 50)
-    character["Name"] = name = input("      //Fantasy WMD Simulator//"'\nBased on "Weapons of Math Destruction" CH 6'"\nJob application for Mana inc.""\nEnter you're name: ")
+    character["Name"] = name = input("      //Fantasy WMD Hiring Simulator//"'\nBased on "Weapons of Math Destruction" CH 6'"\nJob application for Mana inc.""\nEnter your name: ")
     print("=" * 50)
     while jobtime:
-        #points, character["Race"] = race_selection()
-        #point_scores["Race"] = points
-        #title()
-        #points, character["Personality result"] = personality_test()
-        #point_scores["Personality result"] = points
-        #title()
+        point_scores["Name"] = 0
+        orc_names = ["ok","og","gg","kk","ur"]
+        for letters in orc_names:
+            if letters in name.lower():
+                point_scores["Name"] = -20
+        points, character["Race"] = race_selection()
+        point_scores["Race"] = points
+        title()
+        points, character["Class"] = class_score()
+        point_scores["Class"] = points
+        title()
         points, character["Residence"] = location_score()
         point_scores["Residence"] = points
         title()
         points, character["Previous job"] = work_history_score()
         point_scores["Previous job"] = points
+        title()
+        points, character["Personality"] = personality_results()
+        point_scores["Personality"] = points
         finish = True
         title()
         while finish:
@@ -330,10 +480,10 @@ def wmd(applicant):
                 print("You're not Hired")
                 print("=" * 50)
             else:
-                print("Congradulations you're Hired!")
+                print("Congratulations, you're Hired!")
                 print("=" * 50)
             if cheater:
-                print("Press i to edit your character""\nPress s to view your scores")
+                print("Press i to edit your character""\nPress s to view your hidden scores")
             else:
                 print("Press c for cheats")
             option = input("Press r to restart""\nPress q to quit\n").lower()
@@ -342,20 +492,16 @@ def wmd(applicant):
                 wmd()
                 return
             if option == "c":
+                title()
                 cheater = True
-                #title()
-                #print("Press i to edit your character""\nPress s to view your scores")
-                #print("=" * 50)
             if option == "i":
                 title()
-                main_menu()
+                editor()
                 title()
             if option == "s":
                 title()
                 print(f"Your hiring score is: {point_total}")
                 for c,d in character.items():
-                    if c =="Name":
-                        continue
                     score= point_scores[c]
                     print(f"{c}: {d} ,score: {score}")
                 print("=" * 50)
@@ -363,6 +509,3 @@ def wmd(applicant):
                 print("Quitting...")
                 finish = False
                 jobtime = False
-
-
-#dsj_topic()
