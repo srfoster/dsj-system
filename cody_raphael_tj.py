@@ -168,7 +168,7 @@ def personality_test():
     for question in questions:
         while True:
             print(f"Question #{count + 1}:")
-            print(f"\n{question["question"]}")
+            print(f"\n{question['question']}")  #changed "" into '' to avoid python bug/feature
             for key, value in question["options"].items():
                 print(f"\n\t[{key}] {value}")
             user_choice = input("\nSelect an answer: ").upper()
@@ -220,6 +220,8 @@ def menu_header(title):
     print("=" * len(title))
     print(title)
     print("=" * len(title))
+#------------------------------------------------------------------------------------------------------------------------------------
+#used AI to help balance the wmd scores for personality results and race,work,class,residence (numbers only, no code) (Google Gemini)
 #------------------------------------------------------------------------------------------------------------------------------------
 def race_selection():
     score = 0
