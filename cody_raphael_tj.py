@@ -2,70 +2,6 @@ def dsj_topic():
     menu_header("Opaque Hiring")
     wmd()
     
-#def placeholder:    
-    applicant = {
-        "race": "Not filled out.",
-        "personality": "Not filled out.",
-        "residence": "Not filled out.",
-        "previous job": "Not filled out."
-    }
-    main_menu(applicant)
-
-#def main_menu(applicant):
-    menu_header("Application Form")
-    options = {
-        "1": "Race",
-        "2": "Personality Test",
-        "3": "Residence",
-        "4": "Previous job",
-        "5": "WMD Scoring",
-        "6": "Print Application",
-        "Q": "Quit"
-    }
-    functions = {
-        "1": race_selection,
-        "2": personality_test,
-        "3": location_score,
-        "4": work_history_score,
-        "5": wmd,
-        "6": print_application
-    }
-    while True:
-        for key, value in options.items():
-            print(f"\n[{key}] {value}")
-        selection = input("\nSelect an option: ")
-        # Looking up the validity of a specific use of a dictionary. https://www.bing.com/search?q=python+can+i+put+a+function+call+inside+a+dictionary%3F&cvid=017f631b642e40eca11cf84878f91693&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIHCAEQ6wcYQNIBCTExNTIzajBqOagCCLACAQ&FORM=ANAB01&PC=HCTS
-        function = functions.get(selection)
-        if function:
-            function(applicant)
-        elif selection.lower() == "q":
-            print("Exiting...")
-            break
-        else:
-            print("Invalid selection. Please choose a valid option.")
-
-#def print_application(applicant):
-    for key, value in applicant.items():
-        print(f"\n{key.upper()}: {value}")
-
-#def race_selection():
-    menu_header("Select your race:")
-    races = {
-        "1": "Elf",
-        "2": "Dwarf",
-        "3": "Halfling",
-        "4": "Orc"
-    }
-    for key, value in races.items():
-        print(f"\n[{key}] {value}")
-    while True:
-        race = input("\nSelect your race: ")
-        if race in races:
-            applicant["race"] = races[race]
-            print(f"\n{races[race]} selected.\n")
-            return
-        else:
-            print("Invalid race selection. Please choose a valid option.\n")    
 
 def personality_test():
     menu_header("Personality Test")
@@ -248,6 +184,7 @@ def personality_test():
 
     return traits
 
+
 def personality_results():
     traits = personality_test()
     trait_weight = {
@@ -277,6 +214,7 @@ def personality_results():
     else:
         hire = "Low value"
     return score, hire
+
 
 def menu_header(title):
     print("=" * len(title))
@@ -309,6 +247,7 @@ def race_selection():
 
     return score, race_names
 
+
 def class_score():
     score = 0
 
@@ -334,6 +273,7 @@ def class_score():
             print("Please choose a valid option.")
 
     return score, class_names
+
 
 def location_score():
     score = 0
@@ -437,6 +377,7 @@ point_scores = {}
 def title():
     print("=" * 50)
     print(f"      //Fantasy WMD Hiring Simulator//"'\nBased on "Weapons of Math Destruction" CH 6')
+    print("=" * 50)
     for c,d in character.items():
         print(f"{c}: {d}")
     print("=" * 50)
@@ -454,7 +395,7 @@ def wmd():
     print("=" * 50)
     while jobtime:
         point_scores["Name"] = 0
-        orc_names = ["ok","og","gg","kk","ur"]
+        orc_names = ["ok","og","gg","kk","ur","or"]
         for letters in orc_names:
             if letters in name.lower():
                 point_scores["Name"] = -20
@@ -499,7 +440,8 @@ def wmd():
                 editor()
                 title()
             if option == "s":
-                title()
+                print(f"      //Fantasy WMD Hiring Simulator//"'\nBased on "Weapons of Math Destruction" CH 6')
+                print("=" * 50)
                 print(f"Your hiring score is: {point_total}")
                 for c,d in character.items():
                     score= point_scores[c]
