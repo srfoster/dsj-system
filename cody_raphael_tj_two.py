@@ -25,28 +25,41 @@ def rule():
 #work in progress
 
 # Cody, my part! The choice system ;D
+
+# Parameters:
+# char = applicant dictionary
+# active_rules = list of currently active rules
+# yesno = player's choice ("1" = approve, "2" = deny)
+# score_total = current score
+
 def choice(char, active_rules, yesno, score_total):
-
+    
     approved = True
-
+    
+    # Checking if applicant passes all active rules
     for rule in active_rules:
         if char[rule["trait"]] != rule["value"]:
             approved = False
 
+    # Player matched the WMD decision
     if (approved and yesno == "1") or \
        (not approved and yesno == "2"):
 
         score_total += 1
         result = "correct"
 
+    # Player made wrong decision
     else:
         score_total -= 2
         result = "incorrect"
 
+    # Losing condition
     if score_total < 1:
         return "lose"
 
+    # Winning condition
     if score_total > 39:
         return "win"
 
+    # Returns the result and updates the score
     return result, score_total
