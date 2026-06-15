@@ -73,19 +73,47 @@ add_rule()
 
 # check_rules()
 # char = applicant dictionary
-# active_rules = list of active hiring rules
-# Returns True if applicant passes all rules
-# Returns False if applicant fails any rule
+# Uses global include_rules and exclude_rules
+# Include rules override exclude rules
 
-def check_rules(char, active_rules):
-    
-    approved = True
-    
-    for rule in active_rules:
-        if char[rule["trait"]] != rule["value"]:
-            approved = False
-            
-    return approved
+def check_rules(char):
+
+    # Check include rules first (highest priority)
+    for rule in include_rules:
+
+        for topic, rules in rule.items():
+
+            value = char[topic]
+
+            # Handle list values (Traits)
+            if isinstance(value, list):
+                for item in value:
+                    if item in rules:
+                        return True
+
+            # Handle normal values
+            elif value in rules:
+                return True
+
+    # Check exclude rules
+    for rule in exclude_rules:
+
+        for topic, rules in rule.items():
+
+            value = char[topic]
+
+            # Handle list values (Traits)
+            if isinstance(value, list):
+                for item in value:
+                    if item in rules:
+                        return False
+
+            # Handle normal values
+            elif value in rules:
+                return False
+
+    # No rule matched
+    return True
 
 # update_score()
 # approved = True or False from check_rules()
@@ -94,17 +122,17 @@ def check_rules(char, active_rules):
 # Returns result and updated score
 
 def update_score(approved, yesno, score_total):
-    
+
     if (approved and yesno == "1") or \
         (not approved and yesno == "2"):
-            
+
             score_total += 1
             result = "correct"
-            
+
     else:
         score_total -= 2
         result = "incorrect"
-        
+
     return result, score_total
 
 # check_game_state()
@@ -112,21 +140,20 @@ def update_score(approved, yesno, score_total):
 # Returns "win", "lose", or None
 
 def check_game_state(score_total):
-    
+
     if score_total < 1:
         return "lose"
-        
+
     if score_total > 39:
         return "win"
-        
+
     return None
 
 # choice()
 # Main function called by the game
 
-# Parameters:
+#Parameter:
 # char = applicant dictionary
-# active_rules = list of active rules
 # yesno = player's choice ("1" = approve, "2" = deny)
 # score_total = current score
 
@@ -135,9 +162,9 @@ def check_game_state(score_total):
 # "lose" if score drops below 1
 # otherwise returns (result, score_total)
 
-def choice(char, active_rules, yesno, score_total):
+def choice(char, yesno, score_total):
 
-    approved = check_rules(char, active_rules)
+    approved = check_rules(char)
 
     result, score_total = update_score(
         approved,
