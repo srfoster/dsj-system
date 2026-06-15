@@ -71,40 +71,83 @@ add_rule()
 
 # Cody, my part! The choice system ;D
 
-# Parameters:
+# check_rules()
 # char = applicant dictionary
-# active_rules = list of currently active rules
-# yesno = player's choice ("1" = approve, "2" = deny)
-# score_total = current score
+# active_rules = list of active hiring rules
+# Returns True if applicant passes all rules
+# Returns False if applicant fails any rule
 
-def choice(char, active_rules, yesno, score_total):
+def check_rules(char, active_rules):
     
     approved = True
     
-    # Checking if applicant passes all active rules
     for rule in active_rules:
         if char[rule["trait"]] != rule["value"]:
             approved = False
+            
+    return approved
 
-    # Player matched the WMD decision
+# update_score()
+# approved = True or False from check_rules()
+# yesno = player's choice ("1" = approve, "2" = deny)
+# score_total = current score
+# Returns result and updated score
+
+def update_score(approved, yesno, score_total):
+    
     if (approved and yesno == "1") or \
-       (not approved and yesno == "2"):
-
-        score_total += 1
-        result = "correct"
-
-    # Player made wrong decision
+        (not approved and yesno == "2"):
+            
+            score_total += 1
+            result = "correct"
+            
     else:
         score_total -= 2
         result = "incorrect"
+        
+    return result, score_total
 
-    # Losing condition
+# check_game_state()
+# score_total = current score
+# Returns "win", "lose", or None
+
+def check_game_state(score_total):
+    
     if score_total < 1:
         return "lose"
-
-    # Winning condition
+        
     if score_total > 39:
         return "win"
+        
+    return None
 
-    # Returns the result and updates the score
+# choice()
+# Main function called by the game
+
+# Parameters:
+# char = applicant dictionary
+# active_rules = list of active rules
+# yesno = player's choice ("1" = approve, "2" = deny)
+# score_total = current score
+
+# Returns:
+# "win" if score reaches 40
+# "lose" if score drops below 1
+# otherwise returns (result, score_total)
+
+def choice(char, active_rules, yesno, score_total):
+
+    approved = check_rules(char, active_rules)
+
+    result, score_total = update_score(
+        approved,
+        yesno,
+        score_total
+    )
+
+    game_state = check_game_state(score_total)
+
+    if game_state:
+        return game_state
+
     return result, score_total
