@@ -8,6 +8,7 @@ import cody as cody
 import david as david
 import frankie as frankie
 import ian as ian
+import isaac as isaac
 import jyden as jyden
 import randy as randy
 import raphael as raphael
@@ -15,6 +16,7 @@ import seth as seth
 import tj as tj
 import ulysses as ulysses
 import cody_raphael_tj as cody_raphael_tj
+
 
 names = [
     anna,
@@ -24,6 +26,7 @@ names = [
     david,
     frankie,
     ian,
+    isaac,
     jyden,
     randy,
     raphael,
@@ -50,6 +53,7 @@ cody.dsj_topic()
 david.dsj_topic()
 #frankie.dsj_topic()
 ian.dsj_topic()
+isaac.dsj_topic()
 jyden.dsj_topic()
 randy.dsj_topic()
 raphael.dsj_topic()
