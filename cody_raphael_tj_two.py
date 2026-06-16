@@ -23,7 +23,7 @@ def game():
                 continue
             else:
                 result, score = choice(applicant, decision, score)
-                if result == True:
+                if result:
                     print("GAME OVER. You ran out of points.")
                     break
                 else:
