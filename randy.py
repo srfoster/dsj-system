@@ -1,9 +1,9 @@
-print("=====================================================")
-print("              Wealth Gap Knowledge Quiz") 
-print("Based on Pew Research Findings on Economic Inequality")
-print("=====================================================\n")
-
 def dsj_topic():
+    print("=====================================================")
+    print("              Wealth Gap Knowledge Quiz") 
+    print("Based on Pew Research Findings on Economic Inequality")
+    print("=====================================================\n")
+    
     score = 0
     print("Question 1\n")
     print("🤔   According to the report, what happened to the share of U.S. adults living in middle-income households between 1971 and 2019?\n")
