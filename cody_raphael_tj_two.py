@@ -1,4 +1,35 @@
-#def dsj_topic():
+def dsj_topic():
+    print("You are here to ACCEPT and DENY applicants for hiring by the company.")
+    input("When you are ready to get to work, press any key to continue...")
+    score = 0
+    count = 0
+    week = 0
+    while count <= 5:
+        print("Current Applicant: ")
+        applicant = char()
+        for key, value in applicant.items():
+            print(f"{key}: {value}")
+        print("(Choose one) APPROVE or DENY applicant?")
+        while True:
+            decision = input("Applicant status: ")
+            if decision.lower() != "approve" and decision.lower() != "deny":
+                print("You can only APPROVE or DENY.")
+                continue
+            else:
+                #Why did you return two copies of the same thing?
+                result, score = score + choice(applicant, decision, score)
+                count += 1
+                print(f"Your score is: {score}")
+            if count == 5:
+                add_rule()
+                if len(include_rules) > 0:
+                    for key, value in include_rules.items():
+                        print(f"{key}: {value}")
+                if len(exclude_rules) > 0:
+                    for key, value in exclude_rules.items():
+                        print(f"{key}: {value}")
+                week += 1
+                print(f"End of week {week}.")
 
 import random  
 
@@ -123,8 +154,8 @@ def check_rules(char):
 
 def update_score(approved, yesno, score_total):
 
-    if (approved and yesno == "1") or \
-        (not approved and yesno == "2"):
+    if (approved and yesno == "approved") or \
+        (not approved and yesno == "deny"):
 
             score_total += 1
             result = "correct"
@@ -178,3 +209,5 @@ def choice(char, yesno, score_total):
         return game_state
 
     return result, score_total
+
+#dsj_topic()
