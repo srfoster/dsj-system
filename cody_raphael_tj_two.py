@@ -1,16 +1,22 @@
-def dsj_topic():
-    print("You are here to ACCEPT and DENY applicants for hiring by the company.")
-    input("When you are ready to get to work, press any key to continue...")
-    score = 10
-    week = 0
-    game_state = False
-    while not game_state:
-        score, week = game(score, week)
-        game_state = check_game_state(score)
-
-
 include_rules = [] #include lists requirements that you must accept
 exclude_rules = [] #exclude lists attributes you must deny
+
+def dsj_topic():
+    score = 10
+    week = 0
+    print("You are here to ACCEPT and DENY applicants for hiring by the company.")
+    input("When you are ready to get to work, press any key to continue...")
+    game_state = False
+    while not game_state:
+        game_state, score, week = game(score, week)
+        if game_state == "win":
+            print("You win!")
+            return game_state
+        elif game_state == "lose":
+            print("GAME OVER. You ran out of points.")
+            return game_state #game_state
+        else:
+            print(f"Your decision is {game_state}.")
 
 def game(score, week):
     count = 0
@@ -26,9 +32,10 @@ def game(score, week):
             continue
         else:
             result, score = choice(applicant, decision, score)
-            if result:
-                print("GAME OVER. You ran out of points.")
-                return result #game_state
+            if result == "win":
+                return result, score, week
+            elif result == "lose":
+                return result, score, week #game_state
             else:
                 print(f"Your decision is {result}.")
             count += 1
@@ -226,4 +233,4 @@ def choice(char, yesno, score_total):
 
     return result, score_total
 
-#dsj_topic()
+dsj_topic()
