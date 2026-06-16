@@ -22,7 +22,6 @@ def game():
                 print("You can only APPROVE or DENY.")
                 continue
             else:
-                #Why did you return two copies of the same thing?
                 result, score = choice(applicant, decision, score)
                 print(result)
                 count += 1
