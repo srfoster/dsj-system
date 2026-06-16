@@ -23,7 +23,11 @@ def game():
                 continue
             else:
                 result, score = choice(applicant, decision, score)
-                print(result)
+                if result == True:
+                    print("GAME OVER. You ran out of points.")
+                    break
+                else:
+                    print(f"Your decision is {result}.")
                 count += 1
                 print(f"Your score is: {score}")
             if count == 5:
@@ -182,10 +186,10 @@ def update_score(approved, yesno, score_total):
 def check_game_state(score_total):
 
     if score_total < 1:
-        return "lose"
+        return False
 
     if score_total > 39:
-        return "win"
+        return True
 
     return None
 
