@@ -7,7 +7,7 @@ def dsj_topic():
     game_state = False
     while not game_state:
         score, week = game(score, week)
-        if game_state:
+        game_state = check_game_state(score)
 
 
 include_rules = [] #include lists requirements that you must accept
