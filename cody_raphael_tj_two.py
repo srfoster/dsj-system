@@ -1,45 +1,48 @@
 def dsj_topic():
-    game()
-
-include_rules = [] #include lists requirements that you must accept
-exclude_rules = [] #exclude lists attributes you must deny
-
-def game():
     print("You are here to ACCEPT and DENY applicants for hiring by the company.")
     input("When you are ready to get to work, press any key to continue...")
     score = 10
     count = 0
     week = 0
+    game_state = False
+    while not game_state:
+        score, week = game(score, week)
+        if game_state:
+
+
+include_rules = [] #include lists requirements that you must accept
+exclude_rules = [] #exclude lists attributes you must deny
+
+def game(score, week):
     while count <= 5:
-        while True:
-            print("Current Applicant: ")
-            applicant = char()
-            for key, value in applicant.items():
-                print(f"{key}: {value}")
-            print("(Choose one) APPROVE or DENY applicant?")
-            decision = input("Applicant status: ")
-            if decision.lower() != "approve" and decision.lower() != "deny":
-                print("You can only APPROVE or DENY.")
-                continue
+        print("Current Applicant: ")
+        applicant = char()
+        for key, value in applicant.items():
+            print(f"{key}: {value}")
+        print("(Choose one) APPROVE or DENY applicant?")
+        decision = input("Applicant status: ")
+        if decision.lower() != "approve" and decision.lower() != "deny":
+            print("You can only APPROVE or DENY.")
+            continue
+        else:
+            result, score = choice(applicant, decision, score)
+            if result:
+                print("GAME OVER. You ran out of points.")
+                return result #game_state
             else:
-                result, score = choice(applicant, decision, score)
-                if result:
-                    print("GAME OVER. You ran out of points.")
-                    break
-                else:
-                    print(f"Your decision is {result}.")
-                count += 1
-                print(f"Your score is: {score}")
-            if count == 5:
-                add_rule()
-                if len(include_rules) > 0:
-                    for key, value in include_rules.items():
-                        print(f"{key}: {value}")
-                if len(exclude_rules) > 0:
-                    for key, value in exclude_rules.items():
-                        print(f"{key}: {value}")
-                week += 1
-                print(f"End of week {week}.")
+                print(f"Your decision is {result}.")
+            count += 1
+            print(f"Your score is: {score}")
+        if count == 5:
+            add_rule()
+            if len(include_rules) > 0:
+                for key, value in include_rules.items():
+                    print(f"{key}: {value}")
+            if len(exclude_rules) > 0:
+                for key, value in exclude_rules.items():
+                    print(f"{key}: {value}")
+            week += 1
+            print(f"End of week {week}.")
 
 import random  
 
@@ -186,10 +189,10 @@ def update_score(approved, yesno, score_total):
 def check_game_state(score_total):
 
     if score_total < 1:
-        return False
+        return "lose"
 
     if score_total > 39:
-        return True
+        return "win"
 
     return None
 
