@@ -220,4 +220,4 @@ def choice(char, yesno, score_total):
 
     return result, score_total
 
-dsj_topic()
+#dsj_topic()
