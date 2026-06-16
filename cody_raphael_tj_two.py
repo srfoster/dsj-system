@@ -154,8 +154,8 @@ def check_rules(char):
 
 def update_score(approved, yesno, score_total):
 
-    if (approved and yesno == "approved") or \
-        (not approved and yesno == "deny"):
+    if (approved and yesno == "1") or \
+        (not approved and yesno == "2"):
 
             score_total += 1
             result = "correct"
@@ -206,7 +206,7 @@ def choice(char, yesno, score_total):
     game_state = check_game_state(score_total)
 
     if game_state:
-        return game_state
+        return game_state, score_total
 
     return result, score_total
 
