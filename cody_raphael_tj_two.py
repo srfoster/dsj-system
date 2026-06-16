@@ -6,50 +6,44 @@ def dsj_topic():
     week = 0
     print("You are here to ACCEPT and DENY applicants for hiring by the company.")
     input("When you are ready to get to work, press any key to continue...")
-    game_state = False
-    while not game_state:
+    game_state = ""
+    while game_state not in ["win", "lose"]:
         game_state, score, week = game(score, week)
-        if game_state == "win":
-            print("You win!")
-            return game_state
-        elif game_state == "lose":
-            print("GAME OVER. You ran out of points.")
-            return game_state #game_state
-        else:
-            print(f"Your decision is {game_state}.")
+    if game_state == "win":
+        print(f"You win wiht final score of {score} on week {week}!")
+    elif game_state == "lose":
+        print(f"GAME OVER. You ran out of points at week {week}.")
 
 def game(score, week):
-    count = 0
+    count = 1
     while count <= 5:
-        print("Current Applicant: ")
+        print(f"Week {week} Applicant #{count}: ")
         applicant = char()
         for key, value in applicant.items():
             print(f"{key}: {value}")
-        print("(Choose one) APPROVE or DENY applicant?")
+        print("(Choose one) APPROVE(Press '1') or DENY(Press '2') applicant?")
         decision = input("Applicant status: ")
-        if decision.lower() != "approve" and decision.lower() != "deny":
-            print("You can only APPROVE or DENY.")
+        if decision != "1" and decision != "2":
+            print("You can only APPROVE(Press '1') or DENY(Press '2').")
             continue
+        result, score = choice(applicant, decision, score)
+        if result == "win" or result == "lose":
+            return result, score, week
         else:
-            result, score = choice(applicant, decision, score)
-            if result == "win":
-                return result, score, week
-            elif result == "lose":
-                return result, score, week #game_state
-            else:
-                print(f"Your decision is {result}.")
+            print(f"Your decision is {result}.")
             count += 1
             print(f"Your score is: {score}")
-        if count == 5:
-            add_rule()
-            if len(include_rules) > 0:
-                for key, value in include_rules.items():
-                    print(f"{key}: {value}")
-            if len(exclude_rules) > 0:
-                for key, value in exclude_rules.items():
-                    print(f"{key}: {value}")
-            week += 1
-            print(f"End of week {week}.")
+    week += 1
+    add_rule()
+    print(f"End of week {week}")
+    print("Rules Added:")
+    for rule in include_rules:
+        for description in rule.keys():
+            print(f"Hire Immediately: {description}") 
+    for rule in exclude_rules:
+        for description in rule.keys():
+            print(f"Do Not Hire: {description}")
+    return "", score, week
 
 import random  
 
@@ -233,4 +227,4 @@ def choice(char, yesno, score_total):
 
     return result, score_total
 
-dsj_topic()
+#dsj_topic()
