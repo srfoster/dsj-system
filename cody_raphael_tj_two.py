@@ -1,23 +1,30 @@
 def dsj_topic():
+    game()
+
+include_rules = [] #include lists requirements that you must accept
+exclude_rules = [] #exclude lists attributes you must deny
+
+def game():
     print("You are here to ACCEPT and DENY applicants for hiring by the company.")
     input("When you are ready to get to work, press any key to continue...")
-    score = 0
+    score = 10
     count = 0
     week = 0
     while count <= 5:
-        print("Current Applicant: ")
-        applicant = char()
-        for key, value in applicant.items():
-            print(f"{key}: {value}")
-        print("(Choose one) APPROVE or DENY applicant?")
         while True:
+            print("Current Applicant: ")
+            applicant = char()
+            for key, value in applicant.items():
+                print(f"{key}: {value}")
+            print("(Choose one) APPROVE or DENY applicant?")
             decision = input("Applicant status: ")
             if decision.lower() != "approve" and decision.lower() != "deny":
                 print("You can only APPROVE or DENY.")
                 continue
             else:
                 #Why did you return two copies of the same thing?
-                result, score = score + choice(applicant, decision, score)
+                result, score = choice(applicant, decision, score)
+                print(result)
                 count += 1
                 print(f"Your score is: {score}")
             if count == 5:
@@ -51,8 +58,7 @@ def char():
 
 
 #check and call on these 2 for the rules, they are lists of dictionarys. print them below add_rule() if you want an idea of what they are.
-include_rules = [] #include lists requirements that you must accept
-exclude_rules = [] #exclude lists attributes you must deny
+
 
 def add_rule(): #when called upon this creates rules and adds them to include/exclude rules. The first time its called it creates 1 include rule and 1 exclude rule. It has rule caps, so you can call this at the start of each week.
     include = [
@@ -214,4 +220,4 @@ def choice(char, yesno, score_total):
 
     return result, score_total
 
-#dsj_topic()
+dsj_topic()
