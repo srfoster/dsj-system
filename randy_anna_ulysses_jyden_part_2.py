@@ -162,7 +162,7 @@ D. Emails''')
 
 group = [ulysses, randy, jyden, anna]   
 
-def main():
+def dsj_topic():
     for student in group:
         student()
     print("You have now reached the end of the Chapter 10 questions.")
