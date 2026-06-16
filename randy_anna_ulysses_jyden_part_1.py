@@ -21,7 +21,7 @@ C. Show if the user has any previous criminal history for correlation with statu
 D. Provide access to the user's search history and past purchases to estimate income.
 """
 
-def main():
+def dsj_topic():
 	#Ulysses Questions
 	answer_list_chap_8_question_1_Ulysses = ["A. An E-score is a score generated based on habits such as where you shop or where you live, a credit score is a score generated based on how much debt you have or how much credit is available to you",
 	"B. An E-score is an expedited score, a credit score is how much credit you have at a store",
@@ -184,6 +184,3 @@ def main():
 			print("Please type in a letter from the list")
 			
 	print("-------------------")
-	
-	
-main()
