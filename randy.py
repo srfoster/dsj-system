@@ -123,5 +123,5 @@ def dsj_topic():
     input("↳↳↳  Please press Enter to exit...")
     
         
-dsj_topic()
+# dsj_topic()
 
