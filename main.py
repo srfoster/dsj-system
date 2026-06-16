@@ -16,6 +16,8 @@ import seth as seth
 import tj as tj
 import ulysses as ulysses
 import cody_raphael_tj as cody_raphael_tj
+import randy_anna_ulysses_jyden_part_1
+import randy_anna_ulysses_jyden_part_2
 
 
 names = [
@@ -34,6 +36,8 @@ names = [
     tj,
     ulysses,
     cody_raphael_tj,
+    randy_anna_ulysses_jyden_part_1,
+    randy_anna_ulysses_jyden_part_2,
 ]
 
 while True:
