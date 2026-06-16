@@ -93,4 +93,4 @@ def dsj_topic():
 	
 	
 	
-dsj_topic()
+# dsj_topic()
