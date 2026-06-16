@@ -1,26 +1,3 @@
-#This is the main file for chapt. 8
-	
-#Ulysses questions 
-#Randy's questions 
-#Jyden's questions   
-
-# Anna's questions 
-"""
-What might a company use as credit score proxies to decide the structure of a loan or credit card offer they 
-advertise to a user?
-A. User's location
-B. User's online activity
-C. Public government data about the user
-D. All of the above (correct answer)
-
-
-The location of a user's computer is a proxy because it can...
-A. Determine if the user received a degree from a nearby college or university for inference of education level.  
-B. Be matched to the user's zip code for analysis of real estate data and trends. (correct answer)
-C. Show if the user has any previous criminal history for correlation with status of employment.    
-D. Provide access to the user's search history and past purchases to estimate income.
-"""
-
 def dsj_topic():
 	#Ulysses Questions
 	answer_list_chap_8_question_1_Ulysses = ["A. An E-score is a score generated based on habits such as where you shop or where you live, a credit score is a score generated based on how much debt you have or how much credit is available to you",
