@@ -2,7 +2,6 @@ def dsj_topic():
     print("You are here to ACCEPT and DENY applicants for hiring by the company.")
     input("When you are ready to get to work, press any key to continue...")
     score = 10
-    count = 0
     week = 0
     game_state = False
     while not game_state:
@@ -14,6 +13,7 @@ include_rules = [] #include lists requirements that you must accept
 exclude_rules = [] #exclude lists attributes you must deny
 
 def game(score, week):
+    count = 0
     while count <= 5:
         print("Current Applicant: ")
         applicant = char()
