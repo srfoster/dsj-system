@@ -114,6 +114,8 @@ def check_rules(char):
 
         for topic, rules in rule.items():
 
+            if topic not in char:
+                continue
             value = char[topic]
 
             # Handle list values (Traits)
@@ -131,6 +133,8 @@ def check_rules(char):
 
         for topic, rules in rule.items():
 
+            if topic not in char:
+                continue 
             value = char[topic]
 
             # Handle list values (Traits)
