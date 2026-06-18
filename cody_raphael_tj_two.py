@@ -1,4 +1,4 @@
-import random  
+import random
 include_rules = [] #include lists requirements that you must accept
 exclude_rules = [] #exclude lists attributes you must deny
 
@@ -40,7 +40,10 @@ def game(score, week):
             print("You can only APPROVE(Press '1') or DENY(Press '2').")
             print("=" * 50)
             continue
-        result, score = choice(applicant, decision, score)
+        wmd_decision, result, score = choice(applicant, decision, score) # Edited to show WMD's decision, edit by Cody
+        
+        print(f"WMD decision: {wmd_decision}") # by Cody
+        
         if result == "win" or result == "lose":
             return result, score, week
         else:
@@ -92,7 +95,7 @@ def add_rule():
         {"Exclude gold debt above 100,000": [-100000]},
         {"Exclude the deaf, blind, and stupid" : ["Deaf", "Blind", "Stupid"]},
         {"No trolls, orcs, or ogres": ["Ogre", "Orc", "Troll"]},
-        {"deny people connected to the dark arts, necrromancers, the cursed, and dark elves": ["Dark Elf", "Necromancer", "Cursed"]}   
+        {"deny people connected to the dark arts, necrromancers, the cursed, and dark elves": ["Dark Elf", "Necromancer", "Cursed"]}
     ]
     exrule = None
     inrule = None
@@ -159,7 +162,7 @@ def check_rules(char):
         for topic, rules in rule.items():
 
             if topic not in char:
-                continue 
+                continue
             value = char[topic]
 
             # Handle list values (Traits)
@@ -225,6 +228,12 @@ def check_game_state(score_total):
 def choice(char, yesno, score_total):
 
     approved = check_rules(char)
+    
+    if approved:
+        wmd_decision = "APPROVE"
+        
+    else:
+        wmd_decision = "DENY"
 
     result, score_total = update_score(
         approved,
@@ -235,8 +244,8 @@ def choice(char, yesno, score_total):
     game_state = check_game_state(score_total)
 
     if game_state:
-        return game_state, score_total
+        return wmd_decision, game_state, score_total
 
-    return result, score_total
+    return wmd_decision, result, score_total
 
-dsj_topic()
+#dsj_topic()
