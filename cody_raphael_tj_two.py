@@ -1,11 +1,15 @@
+import random  
 include_rules = [] #include lists requirements that you must accept
 exclude_rules = [] #exclude lists attributes you must deny
 
 def dsj_topic():
     score = 10
-    week = 0
+    week = 1
+    add_rule()
+    print("You are a new WMD algorithm")
     print("You are here to ACCEPT and DENY applicants for hiring by the company.")
     input("When you are ready to get to work, press any key to continue...")
+    print("=" * 50)
     game_state = ""
     while game_state not in ["win", "lose"]:
         game_state, score, week = game(score, week)
@@ -17,14 +21,24 @@ def dsj_topic():
 def game(score, week):
     count = 1
     while count <= 5:
-        print(f"Week {week} Applicant #{count}: ")
+        print("Hiring Criteria:")
+        for rule in include_rules:
+            for description in rule.keys():
+                print(f"{description}")
+        for rule in exclude_rules:
+            for description in rule.keys():
+                print(f"{description}")
+        print(f"\nWeek {week}, Applicant #{count}: ")
         applicant = char()
+        print("=" * 50)
         for key, value in applicant.items():
             print(f"{key}: {value}")
+        print("=" * 50)
         print("(Choose one) APPROVE(Press '1') or DENY(Press '2') applicant?")
         decision = input("Applicant status: ")
         if decision != "1" and decision != "2":
             print("You can only APPROVE(Press '1') or DENY(Press '2').")
+            print("=" * 50)
             continue
         result, score = choice(applicant, decision, score)
         if result == "win" or result == "lose":
@@ -32,86 +46,84 @@ def game(score, week):
         else:
             print(f"Your decision is {result}.")
             count += 1
-            print(f"Your score is: {score}")
-    week += 1
+            print(f"Your wmd hiring score is: {score}")
+            print("=" * 50)
     add_rule()
+    print("=" * 50)
     print(f"End of week {week}")
-    print("Rules Added:")
-    for rule in include_rules:
-        for description in rule.keys():
-            print(f"Hire Immediately: {description}") 
-    for rule in exclude_rules:
-        for description in rule.keys():
-            print(f"Do Not Hire: {description}")
+    if len(exclude_rules) <= 4 or len(include_rules) <= 4:
+        print("Rule Added")
+        print("=" * 50)
+    week += 1
     return "", score, week
 
-import random  
 
 def char():
 
     character = {
         "Race": random.choice(["Elf", "Orc", "Dwarf", "Mark Zuckerberg (Lizardmen)", "Goblin", "Human", "Slime", "Hobgoblin", "Troll", "Ogre", "High Elf", "Dark Elf", "Halfling"]),
-        "Residence": random.choice(["whiterun", "Kvatch", "Jacobstown", "Jacinto", "Lordran", "Yharnam", "Raccoon City", "Wraeclast"]),
+        "Residence": random.choice(["Whiterun", "Kvatch", "Jacobstown", "Jacinto", "Lordran", "Yharnam", "Raccoon City", "Wraeclast"]),
         "Personality": random.choices(["Low Value", "Mid Value", "High Value"], [5,4,1])[0], #these numbers are weights
         "Gold": random.randint(-200000,200000),
-        "Traits": random.sample(["Dim Witted", "Quick Learner", "Undead", "Cannibal", "Lucky", "Anger Issues", "Pyromaniac", "Deaf", "Blind", "Stupid", "Suspicious", "Mysterious", "Good Natured"], random.randint(1,3)),
+        "Traits": random.sample(["Dim Witted", "Quick Learner", "Undead", "Cannibal", "Lucky", "Anger Issues", "Pyromaniac", "Deaf", "Blind", "Stupid", "Suspicious", "Mysterious", "Good Natured", "Scoundrel"], random.randint(1,3)),
         "Ailments": random.choices(["Cursed", "Vampirism", "Lycanthropy", "None", "Hollowed"], [1,1,1,4,1])[0],
         "Class": random.choice(["Necromancer", "Thief", "Cleric", "Warrior", "Tank", "Druid", "Ranger", "Mage", "Assassin", "Paladin", "Healer"]),
     }
     #print(character)
     return character #this is a dictionary with all the random character attributes
-#char()
-#uncomment print(character) and run char() to see what this returns
 
 
-#check and call on these 2 for the rules, they are lists of dictionarys. print them below add_rule() if you want an idea of what they are.
-
-
-def add_rule(): #when called upon this creates rules and adds them to include/exclude rules. The first time its called it creates 1 include rule and 1 exclude rule. It has rule caps, so you can call this at the start of each week.
+#when called upon this creates rules and adds them to include/exclude rules. The first time its called it creates 1 include rule and 1 exclude rule. It has rule caps, so you can call this at the start of each week.
+def add_rule():
     include = [
         {"High value personalities must be chosen": ["High Value"]},
-        {"Accept applicants with more than 150,000 gold":[150000]}
+        {"Accept applicants with more than 150,000 gold":[150000]},
+        {"Accept all thiefs Assassins and Scoundrels": ["Thief", "Assassin","Scoundrel"]},
+        {"Accept all Lucky or Mysterious applicants": ["Lucky", "Mysterious"]},
+        {"Accept the residents of whiterun": ["Whiterun"]},
+        {"Accept elves and high elves (no dark elves though)": ["Elf", "High Elf"]}
     ]
 
     exclude = [
         {"No Faith, deny any clerics or paladins": ["Cleric", "Paladin"]},
-        {"No goblins of any kind": ["Hobgoblin", "Goblin"]}
+        {"No goblins of any kind": ["Hobgoblin", "Goblin"]},
+        {"No undead, exclude hollows, vampirism, undead, and people from raccoon city or lordran": ["Undead", "Vampirism", "Hollowed", "Lordran", "Raccoon City"]},
+        {"No short Races (Hobgoblins excluded)": ["Goblin", "Dwarf", "Halfling"]},
+        {"Exclude gold debt above 100,000": [-100000]},
+        {"Exclude the deaf, blind, and stupid" : ["Deaf", "Blind", "Stupid"]},
+        {"No trolls, orcs, or ogres": ["Ogre", "Orc", "Troll"]},
+        {"deny people connected to the dark arts, necrromancers, the cursed, and dark elves": ["Dark Elf", "Necromancer", "Cursed"]}   
     ]
+    exrule = None
+    inrule = None
     if not include_rules and not exclude_rules:
         include_rules.append(random.choice(include))
         exclude_rules.append(random.choice(exclude))
     elif len(include_rules) == len(exclude_rules):
         if len(exclude_rules) < 4:
-            exclude_rules.append(random.choice(exclude))
+            exrule = (random.choice(exclude))
     elif len(exclude_rules) < 4 and len(include_rules) < 4:
         rule_choice = random.choice([include, exclude])
         if rule_choice == include:
-            include_rules.append(random.choice(include))
+            inrule = (random.choice(include))
         if rule_choice == exclude:
-            exclude_rules.append(random.choice(exclude))
+            exrule = (random.choice(exclude))
     elif len(exclude_rules) < 4:
-        exclude_rules.append(random.choice(exclude))
+        exrule = (random.choice(exclude))
     elif len(include_rules) < 4:
-        include_rules.append(random.choice(include))
+        inrule = (random.choice(include))
+    if exrule:
+        while exrule in exclude_rules:
+            exrule = random.choice(exclude)
+        exclude_rules.append(exrule)
+    if inrule:
+        while inrule in include_rules:
+            inrule = random.choice(include)
+        include_rules.append(inrule)
     else:
         return
-    
-
-    #print(include_rules)
-    #print(exclude_rules)
-
-
-
-    '''
-    rules = no faith, no vam/lycan , no goblin/hobgoblib, no short races, debt limit(+-), no undead/vampire, no rogue classes, no tanky classes, no tall races, high values always accepted, no ailments, 
-    new_rule = random.choice(rules)
-    return rule or maybe all active rules(not sure yet)
-''' 
 #Looked up what random imports
-#char()
-#rule()
-add_rule()
-#work in progress
+
 
 # Cody, my part! The choice system ;D
 
@@ -227,4 +239,4 @@ def choice(char, yesno, score_total):
 
     return result, score_total
 
-#dsj_topic()
+dsj_topic()
