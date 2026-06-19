@@ -8,15 +8,20 @@ def dsj_topic():
     add_rule()
     print("You are a new WMD algorithm")
     print("You are here to ACCEPT and DENY applicants for hiring by the company.")
-    input("When you are ready to get to work, press any key to continue...")
+    print("At any time press q if you wish to be shutdown")
+    if input("When you are ready to get to work, press any key to continue...").lower() == "q":
+        print("quitting...")
+        return
     print("=" * 50)
     game_state = ""
-    while game_state not in ["win", "lose"]:
+    while game_state not in ["win", "lose", "quit"]:
         game_state, score, week = game(score, week)
     if game_state == "win":
-        print(f"You win wiht final score of {score} on week {week}!")
+        print(f"You win with final score of {score} on week {week}!")
     elif game_state == "lose":
         print(f"GAME OVER. You ran out of points at week {week}.")
+    elif game_state == "quit":
+        print("quitting...")
 
 def game(score, week):
     count = 1
@@ -34,15 +39,17 @@ def game(score, week):
         for key, value in applicant.items():
             print(f"{key}: {value}")
         print("=" * 50)
-        print("(Choose one) APPROVE(Press '1') or DENY(Press '2') applicant?")
+        print("(Choose one) APPROVE(Press '1') or DENY(Press '2') The applicant")
         decision = input("Applicant status: ")
+        if decision.lower() == "q":
+            return "quit", score, week
         if decision != "1" and decision != "2":
             print("You can only APPROVE(Press '1') or DENY(Press '2').")
             print("=" * 50)
             continue
         wmd_decision, result, score = choice(applicant, decision, score) # Edited to show WMD's decision, edit by Cody
         
-        print(f"WMD decision: {wmd_decision}") # by Cody
+        #print(f"WMD decision: {wmd_decision}") # by Cody
         
         if result == "win" or result == "lose":
             return result, score, week
@@ -51,12 +58,12 @@ def game(score, week):
             count += 1
             print(f"Your wmd hiring score is: {score}")
             print("=" * 50)
-    add_rule()
     print("=" * 50)
     print(f"End of week {week}")
-    if len(exclude_rules) <= 4 or len(include_rules) <= 4:
+    if len(exclude_rules) < 4 or len(include_rules) < 4:
         print("Rule Added")
         print("=" * 50)
+    add_rule()
     week += 1
     return "", score, week
 
@@ -139,41 +146,52 @@ def check_rules(char):
 
     # Check include rules first (highest priority)
     for rule in include_rules:
-
         for topic, rules in rule.items():
+            if "150,000 gold" in topic:
+                if char["Gold"] >= 150000:
+                    return True
+            for attributes in rules:
+                if attributes in char.values() or attributes in char["Traits"]:
+                    return True
 
-            if topic not in char:
-                continue
-            value = char[topic]
+
+            #if topic not in char:
+                #continue
+            #value = char[topic]
 
             # Handle list values (Traits)
-            if isinstance(value, list):
-                for item in value:
-                    if item in rules:
-                        return True
+            #if isinstance(value, list):
+                #for item in value:
+                    #if item in rules:
+                        #return True
 
             # Handle normal values
-            elif value in rules:
-                return True
+            #elif value in rules:
+                #return True
 
     # Check exclude rules
     for rule in exclude_rules:
-
         for topic, rules in rule.items():
+            if "gold debt" in topic:
+                if char["Gold"] <= -100000:
+                    return False
+            for attributes in rules:
+                if attributes in char.values() or attributes in char["Traits"]:
+                    return False
 
-            if topic not in char:
-                continue
-            value = char[topic]
+            #if topic not in char:
+                #continue
+            #value = char[topic]
 
             # Handle list values (Traits)
-            if isinstance(value, list):
-                for item in value:
-                    if item in rules:
-                        return False
+            #if isinstance(value, list):
+                #for item in value:
+                    #if item in rules:
+                        #return False
 
             # Handle normal values
-            elif value in rules:
-                return False
+            #elif value in rules:
+                #return False
 
     # No rule matched
     return True
@@ -247,5 +265,3 @@ def choice(char, yesno, score_total):
         return wmd_decision, game_state, score_total
 
     return wmd_decision, result, score_total
-
-#dsj_topic()

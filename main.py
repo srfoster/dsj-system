@@ -16,6 +16,7 @@ import seth as seth
 import tj as tj
 import ulysses as ulysses
 import cody_raphael_tj as cody_raphael_tj
+import cody_raphael_tj_two as cody_raphael_tj_two
 import randy_anna_ulysses_jyden_part_1
 import randy_anna_ulysses_jyden_part_2
 
@@ -36,6 +37,7 @@ names = [
     tj,
     ulysses,
     cody_raphael_tj,
+    cody_raphael_tj_two,
     randy_anna_ulysses_jyden_part_1,
     randy_anna_ulysses_jyden_part_2,
 ]
